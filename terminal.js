@@ -25,6 +25,7 @@ worldco.Terminal = function(airport) {
     this.makeGates_();
     this.addStuff_();
     this.addPlayer_();
+    this.addState_();
 
     lime.scheduleManager.schedule(this.tick_, this);
 };
@@ -60,6 +61,13 @@ worldco.Terminal.prototype.addPlayer_ = function() {
     this.appendChild(this.player_);
     var keyboard = new lib.Keyboard(this);
     keyboard.bindWasd(goog.bind(this.player_.setIntention, this.player_));
+};
+
+worldco.Terminal.prototype.addState_ = function() {
+    var wallet = new lime.Label().setSize(100, 50).setFontSize(20)
+            .setText('$' + worldco.game_state.getMoney())
+            .setPosition(WIDTH - 100, 50);
+    this.appendChild(wallet);
 };
 
 worldco.Terminal.prototype.tick_ = function(delta) {

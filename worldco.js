@@ -4,6 +4,7 @@ goog.require('lime.Director');
 
 goog.require('worldco.AirportMap');
 goog.require('worldco.FinalTerminal');
+goog.require('worldco.State');
 goog.require('worldco.Terminal');
 
 var WIDTH = 1024;
@@ -11,6 +12,7 @@ var HEIGHT = 768;
 var LEN = 44;
 
 worldco.start = function(){
+    worldco.game_state = new worldco.State();
     worldco.map = new worldco.AirportMap();
     var jfk = worldco.map.getStart();
     worldco.terminals = {};
