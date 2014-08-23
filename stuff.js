@@ -27,16 +27,16 @@ worldco.TrashCan = function() {
 goog.inherits(worldco.TrashCan, worldco.Stuff);
 
 worldco.TrashCan.prototype.interact = function() {
-    if (!this.empty_) {
-        if (goog.math.randomInt(2) == 0) {
-            this.empty_ = true;
-        }
+    if (this.empty_) {
+        return [];
+    } else if (goog.math.randomInt(2) == 0) {
+        this.empty_ = true;
     }
+
     var ticket = worldco.Ticket.getRandom();
-    var label = new lime.Label().setSize(100, 50).setFontSize(20)
-            .setText("You found a ticket to " + ticket.getDestination()
-                     + " in the trash")
-            .setPosition(0, -100);
-    this.appendChild(label);
+    var label = worldco.resources.getDialog(
+        "You found a ticket to " + ticket.getDestination()
+            + " in the trash.");
+    this.getScene().appendChild(label);
     return [ticket];
 };

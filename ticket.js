@@ -18,6 +18,7 @@ worldco.Ticket.PRICE_DIFF = 200;
 worldco.Ticket.getRandom = function() {
     var ticket = new worldco.Ticket();
     ticket.setDestination(worldco.map.getRandom());
+    ticket.price_ = 0;
     return ticket;
 };
 
