@@ -80,6 +80,7 @@ worldco.Terminal.prototype.tick_ = function(delta) {
         var found = this.stuff_[pos].interact();
         for (var i = 0; i < found.length; ++i) {
             this.appendChild(found[i].setPosition(500, 500));
+            worldco.game_state.addToInventory(found[i]);
         }
     }
     this.player_.move(delta);

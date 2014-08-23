@@ -32,3 +32,7 @@ worldco.Ticket.prototype.getDestination = function() {
 worldco.Ticket.prototype.getPrice = function() {
     return this.price_;
 };
+
+worldco.Ticket.prototype.name = function() {
+    return "Ticket to " + this.to_.name();
+};
