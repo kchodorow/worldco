@@ -4,9 +4,13 @@ goog.require('lime.Label');
 goog.require('lime.Scene');
 goog.require('lime.Sprite');
 
+goog.require('lib.Keyboard');
+goog.require('worldco.Player');
+
 worldco.Terminal = function(airport) {
     goog.base(this);
 
+    this.paused_ = false;
     this.appendChild(new lime.Label().setSize(WIDTH, 50).setFontSize(30)
             .setText("Welcome to "+airport.name()).setPosition(WIDTH/2, 100));
 
@@ -17,6 +21,9 @@ worldco.Terminal = function(airport) {
     this.appendChild(new lime.Sprite().setSize(1000, 200).setFill('#ddd')
                      .setPosition(WIDTH/2, HEIGHT/2).setStroke(1, '#000'));
     this.makeGates_();
+    this.addPlayer_();
+
+    lime.scheduleManager.schedule(this.tick_, this);
 };
 
 goog.inherits(worldco.Terminal, lime.Scene);
@@ -35,6 +42,23 @@ worldco.Terminal.prototype.makeGates_ = function() {
     }
 };
 
+worldco.Terminal.prototype.addPlayer_ = function() {
+    this.player_ = new worldco.Player();
+    this.appendChild(this.player_);
+    var keyboard = new lib.Keyboard(this);
+    keyboard.bindWasd(goog.bind(this.player_.setIntention, this.player_));
+};
+
+worldco.Terminal.prototype.tick_ = function(delta) {
+    if (this.paused_) {
+        return;
+    }
+
+    if (this.player_.isInteracting()) {
+        // TODO
+    }
+    this.player_.move(delta);
+};
 
 worldco.Gate = function(destination) {
     goog.base(this);
