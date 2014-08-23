@@ -8,8 +8,8 @@ worldco.Gate = function(destination) {
     this.destination_ = destination;
 
     this.setSize(LEN, LEN).setFill('#ccc');
-    var lbl = new lime.Label().setSize(LEN*2, 50).setFontSize(30)
-            .setText(destination.name()).setPosition(0, 0);
+    var lbl = worldco.resources.getLabel(destination.name())
+            .setSize(LEN*2, 50).setFontSize(30).setPosition(0, 0);
     this.appendChild(lbl);
 
     this.ticket_for_sale_ = new worldco.Ticket();

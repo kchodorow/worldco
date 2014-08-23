@@ -16,8 +16,9 @@ worldco.Terminal = function(airport) {
 
     this.airport_ = airport;
     this.paused_ = false;
-    this.appendChild(new lime.Label().setSize(WIDTH, 50).setFontSize(30)
-            .setText("Welcome to "+airport.name()).setPosition(WIDTH/2, 100));
+    this.appendChild(worldco.resources.getLabel("Welcome to "+airport.name())
+                     .setSize(WIDTH, 50).setFontSize(LEN)
+                     .setPosition(WIDTH/2, 100));
 
     this.TERMINAL_WIDTH = 1000;
     this.TERMINAL_TOP = HEIGHT/2 - 100;
@@ -96,9 +97,9 @@ worldco.Terminal.prototype.addPlayer_ = function() {
 };
 
 worldco.Terminal.prototype.addState_ = function() {
-    this.wallet_ = new lime.Label().setSize(100, 50).setFontSize(20)
-            .setText('$' + worldco.game_state.getMoney())
-            .setPosition(WIDTH - 100, 50);
+    this.wallet_ = worldco.resources.getLabel(
+        '$' + worldco.game_state.getMoney())
+        .setSize(100, 50).setFontSize(20).setPosition(WIDTH - 100, 50);
     this.appendChild(this.wallet_);
 };
 

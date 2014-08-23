@@ -6,8 +6,6 @@ goog.require('worldco.Ticket');
 worldco.Stuff = function() {
     goog.base(this);
 
-    this.setFill('#00f').setSize(LEN, LEN);
-
     this.inventory_ = [];
 };
 
@@ -22,6 +20,7 @@ worldco.Stuff.NOTHING = new worldco.Stuff();
 worldco.TrashCan = function() {
     goog.base(this);
 
+    this.appendChild(worldco.resources.getTrashCan().setScale(2, 2));
     this.empty_ = false;
 };
 

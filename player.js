@@ -5,7 +5,8 @@ goog.require('lime.Sprite');
 worldco.Player = function() {
     goog.base(this);
 
-    this.setSize(LEN, LEN).setPosition(WIDTH/2, HEIGHT/2).setFill('#000');
+    this.appendChild(worldco.resources.getPlayer().setScale(2, 2));
+    this.setPosition(WIDTH/2, HEIGHT/2);
     this.MAX_SPEED = .4;
     this.STOP = new goog.math.Coordinate(0, 0);
     this.intention_ = this.STOP;
