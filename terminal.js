@@ -53,9 +53,27 @@ worldco.Terminal.prototype.addStuff_ = function() {
         this.stuff_[i] = worldco.Stuff.NOTHING;
     }
     this.makeGates_();
+    this.makeTrashCans_();
+    this.makeMooks_();
+};
 
-    this.stuff_[10] = new worldco.TrashCan();
-    this.appendChild(this.stuff_[10].setPosition(10*LEN, 300));
+worldco.Terminal.prototype.makeTrashCans_ = function() {
+    var NUM_TRASHCANS = 3;
+    for (var i = 0; i < NUM_TRASHCANS; ++i) {
+        var trash_pos = goog.math.randomInt(this.stuff_.length);
+        while (this.stuff_[trash_pos] != worldco.Stuff.NOTHING) {
+            ++trash_pos;
+            if (trash_pos == this.stuff_.length) {
+                trash_pos = 0;
+            }
+        }
+        this.stuff_[trash_pos] = new worldco.TrashCan();
+        this.appendChild(this.stuff_[trash_pos]
+                         .setPosition(trash_pos*LEN, 300));
+    }
+};
+
+worldco.Terminal.prototype.makeMooks_ = function() {
 };
 
 worldco.Terminal.prototype.addPlayer_ = function() {
