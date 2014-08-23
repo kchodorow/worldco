@@ -33,5 +33,11 @@ worldco.TrashCan.prototype.interact = function() {
             this.empty_ = true;
         }
     }
-    return [new worldco.Ticket()];
+    var ticket = worldco.Ticket.getRandom();
+    var label = new lime.Label().setSize(100, 50).setFontSize(20)
+            .setText("You found a ticket to " + ticket.getDestination()
+                     + " in the trash")
+            .setPosition(0, -100);
+    this.appendChild(label);
+    return [ticket];
 };
