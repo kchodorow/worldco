@@ -64,11 +64,11 @@ worldco.Terminal.prototype.addStuff_ = function() {
 };
 
 worldco.Terminal.prototype.getEmptyPos_ = function() {
-    var trash_pos = goog.math.randomInt(this.stuff_.length);
+    var trash_pos = goog.math.randomInt(this.stuff_.length-1);
     while (this.stuff_[trash_pos] != worldco.Stuff.NOTHING) {
         ++trash_pos;
-        if (trash_pos == this.stuff_.length) {
-            trash_pos = 0;
+        if (trash_pos == this.stuff_.length-1) {
+            trash_pos = 1;
         }
     }
     return trash_pos;

@@ -4,10 +4,8 @@ Programming
 Make splash screen intro
 Make splash screen outro
 Fix the offset for interacting
-Fix general terminal offsets
 Make walking animation work
 Make inventory aligned vertically correctly
-Make gates bigger & darker
 Fix bug where NY is appearing as a NY destination
 
 Not required

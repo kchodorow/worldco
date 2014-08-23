@@ -1,5 +1,6 @@
 goog.provide('worldco.Gate');
 
+goog.require('lime.RoundedRect');
 goog.require('worldco.Stuff');
 
 worldco.Gate = function(destination) {
@@ -7,7 +8,9 @@ worldco.Gate = function(destination) {
 
     this.destination_ = destination;
 
-    this.setSize(LEN, LEN).setFill('#ccc');
+    this.appendChild(new lime.RoundedRect().setSize(LEN * 1.5, LEN * 2)
+                     .setFill(worldco.resources.BROWN)
+                     .setPosition(0, -10));
     var lbl = worldco.resources.getLabel(destination.name())
             .setSize(LEN*2, 50).setFontSize(30).setPosition(0, -LEN*2);
     this.appendChild(lbl);
