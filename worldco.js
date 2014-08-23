@@ -11,15 +11,15 @@ var HEIGHT = 768;
 var LEN = 44;
 
 worldco.start = function(){
-    var map = new worldco.AirportMap();
-    var jfk = map.getStart();
+    worldco.map = new worldco.AirportMap();
+    var jfk = worldco.map.getStart();
     worldco.terminals = {};
     worldco.terminals['New York'] = jfk;
 
     worldco.director = new lime.Director(document.body,1024,768);
     var scene = new worldco.Terminal(jfk);
     worldco.terminals["Boston"] = new worldco.FinalTerminal(
-        map.getAirport("Boston"));
+        worldco.map.getAirport("Boston"));
 
     worldco.director.replaceScene(scene);
 };

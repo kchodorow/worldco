@@ -20,12 +20,16 @@ worldco.AirportMap = function() {
     }
 
     last_city.addOutgoing(this.dest_);
-
     this.finishConnections_();
+    this.names_ = Object.keys(this.cities_);
 };
 
 worldco.AirportMap.prototype.getStart = function() {
     return this.start_;
+};
+
+worldco.AirportMap.prototype.getRandom = function() {
+    return this.cities_[this.names_[goog.math.randomInt(this.names_.length)]];
 };
 
 worldco.AirportMap.prototype.getAirport = function(name) {

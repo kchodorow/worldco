@@ -25,7 +25,7 @@ worldco.Player.prototype.isInteracting = function() {
 worldco.Player.prototype.setIntention = function(dir) {
     if (dir.y != 0) {
         this.is_interacting_ = true;
-    } else if (dir.x != 0) {
+    } else {
         this.intention_ = dir;
     }
 };
