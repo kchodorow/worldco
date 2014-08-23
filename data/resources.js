@@ -36,6 +36,10 @@ worldco.data.Resources.prototype.getAgent = function() {
     return new lime.Sprite().setFill(this.spriteSheet_.getFrame('agent.png'));
 };
 
+worldco.data.Resources.prototype.getTicket = function() {
+    return new lime.Sprite().setFill(this.spriteSheet_.getFrame('pass.png'));
+};
+
 worldco.data.Resources.prototype.getLabel = function(text) {
     return new lime.Label().setText(text)
         .setFontSize(this.FONT_SIZE)

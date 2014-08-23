@@ -14,9 +14,8 @@ var LEN = 44;
 
 worldco.start = function(){
     worldco.resources = new worldco.data.Resources();
-
-    worldco.game_state = new worldco.State();
     worldco.map = new worldco.AirportMap();
+    worldco.game_state = new worldco.State();
     var jfk = worldco.map.getStart();
     worldco.terminals = {};
     worldco.terminals['New York'] = jfk;

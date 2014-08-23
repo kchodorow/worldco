@@ -1,7 +1,13 @@
 goog.provide('worldco.State');
 
+goog.require('worldco.Ticket');
+goog.require('worldco.AirportMap');
+
 worldco.State = function() {
+    var boston = new worldco.Ticket();
+    boston.setDestination(worldco.map.getDestination());
     this.inventory_ = {};
+    this.inventory_[boston.name()] = boston;
     this.money_ = 1000;
 };
 
@@ -24,4 +30,10 @@ worldco.State.prototype.addToInventory = function(thing) {
 
 worldco.State.prototype.removeFromInventory = function(name) {
     delete this.inventory_[name];
+};
+
+worldco.State.prototype.getInventorySprite = function() {
+    var keys = Object.keys(this.inventory_);
+    // TODO: show boarding pass next to ticket.
+    return worldco.resources.getDialog(keys.join("\n"));
 };

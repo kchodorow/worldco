@@ -80,7 +80,7 @@ worldco.Terminal.prototype.makeTrashCans_ = function() {
         var trash_pos = this.getEmptyPos_();
         this.stuff_[trash_pos] = new worldco.TrashCan();
         this.appendChild(this.stuff_[trash_pos]
-                         .setPosition(trash_pos*LEN, HEIGHT/2 + 100));
+                         .setPosition(trash_pos*LEN, HEIGHT/2 + 70));
     }
 };
 
@@ -89,7 +89,7 @@ worldco.Terminal.prototype.makeMooks_ = function() {
     var clue = worldco.map.getClue(this.airport_);
     this.stuff_[mook_pos] = new worldco.ClueMook(clue);
     this.appendChild(this.stuff_[mook_pos]
-                     .setPosition(mook_pos*LEN, HEIGHT/2 + 100));
+                     .setPosition(mook_pos*LEN, HEIGHT/2 + 70));
 };
 
 worldco.Terminal.prototype.addPlayer_ = function() {
@@ -104,6 +104,13 @@ worldco.Terminal.prototype.addState_ = function() {
         '$' + worldco.game_state.getMoney())
         .setSize(100, 50).setFontSize(20).setPosition(WIDTH - 100, 50);
     this.appendChild(this.wallet_);
+    var inventory = worldco.resources.getLabel("Inventory");
+    this.appendChild(inventory.setPosition(WIDTH - 100, 100));
+
+    var scene = this;
+    goog.events.listen(inventory, ['mousedown'], function(e) {
+        scene.appendChild(worldco.game_state.getInventorySprite());
+    });
 };
 
 worldco.Terminal.prototype.tick_ = function(delta) {
@@ -115,7 +122,8 @@ worldco.Terminal.prototype.tick_ = function(delta) {
         var pos = Math.floor(this.player_.getPosition().x / LEN);
         var found = this.stuff_[pos].interact();
         for (var i = 0; i < found.length; ++i) {
-            this.appendChild(found[i].setPosition(500, 500));
+            this.appendChild(found[i].setPosition(
+                this.stuff_[pos].getPosition()));
             worldco.game_state.addToInventory(found[i]);
         }
     }

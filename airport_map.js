@@ -28,6 +28,10 @@ worldco.AirportMap.prototype.getStart = function() {
     return this.start_;
 };
 
+worldco.AirportMap.prototype.getDestination = function() {
+    return this.dest_;
+};
+
 worldco.AirportMap.prototype.getRandom = function() {
     return this.cities_[this.names_[goog.math.randomInt(this.names_.length)]];
 };

@@ -1,13 +1,21 @@
 goog.provide('worldco.Ticket');
 
 goog.require('lime.Sprite');
+goog.require('lime.animation.FadeTo');
+goog.require('lime.animation.MoveTo');
+goog.require('lime.animation.ScaleTo');
+goog.require('lime.animation.Spawn');
 
 worldco.Ticket = function() {
     goog.base(this);
 
     this.price_ = goog.math.randomInt(worldco.Ticket.PRICE_DIFF) +
         worldco.Ticket.MIN_PRICE;
-    this.setStroke(1, '#000').setSize(LEN, LEN/2);
+    this.appendChild(worldco.resources.getTicket().setScale(2, 2));
+    this.runAction(new lime.animation.Spawn(
+        new lime.animation.MoveTo(WIDTH - 100, 100),
+        new lime.animation.FadeTo(0),
+        new lime.animation.ScaleTo(1, 1)));
 };
 
 goog.inherits(worldco.Ticket, lime.Sprite);
