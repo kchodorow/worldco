@@ -39,6 +39,22 @@ worldco.AirportMap.prototype.getAirport = function(name) {
     return this.cities_[name];
 };
 
+// current = 1
+// MAX = 4
+// generate between 2 & 3
+// generate 0, or 1
+// next = current + 1 + generated
+worldco.AirportMap.prototype.getClue = function(current) {
+    var depth = current.depth();
+    var generated = goog.math.randomInt(worldco.AirportMap.MAX_DEPTH - depth - 1);
+    var tier_index = depth + generated + 1;
+    var tier = this.cities_by_depth_[tier_index];
+    var source = tier[goog.math.randomInt(tier.length)];
+    var outgoing = source.getOutgoing();
+    var dest = outgoing[goog.math.randomInt(outgoing.length)];
+    return {to : dest.name(), from : source.name()};
+};
+
 worldco.AirportMap.prototype.finishConnections_ = function() {
     // Connect airports to lesser airports.
     for (var i in this.cities_by_depth_) {

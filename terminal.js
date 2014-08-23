@@ -5,6 +5,7 @@ goog.require('lime.Scene');
 goog.require('lime.Sprite');
 
 goog.require('lib.Keyboard');
+goog.require('worldco.ClueMook');
 goog.require('worldco.Gate');
 goog.require('worldco.Player');
 goog.require('worldco.Stuff');
@@ -13,6 +14,7 @@ goog.require('worldco.TrashCan');
 worldco.Terminal = function(airport) {
     goog.base(this);
 
+    this.airport_ = airport;
     this.paused_ = false;
     this.appendChild(new lime.Label().setSize(WIDTH, 50).setFontSize(30)
             .setText("Welcome to "+airport.name()).setPosition(WIDTH/2, 100));
@@ -57,16 +59,21 @@ worldco.Terminal.prototype.addStuff_ = function() {
     this.makeMooks_();
 };
 
+worldco.Terminal.prototype.getEmptyPos_ = function() {
+    var trash_pos = goog.math.randomInt(this.stuff_.length);
+    while (this.stuff_[trash_pos] != worldco.Stuff.NOTHING) {
+        ++trash_pos;
+        if (trash_pos == this.stuff_.length) {
+            trash_pos = 0;
+        }
+    }
+    return trash_pos;
+};
+
 worldco.Terminal.prototype.makeTrashCans_ = function() {
     var NUM_TRASHCANS = 3;
     for (var i = 0; i < NUM_TRASHCANS; ++i) {
-        var trash_pos = goog.math.randomInt(this.stuff_.length);
-        while (this.stuff_[trash_pos] != worldco.Stuff.NOTHING) {
-            ++trash_pos;
-            if (trash_pos == this.stuff_.length) {
-                trash_pos = 0;
-            }
-        }
+        var trash_pos = this.getEmptyPos_();
         this.stuff_[trash_pos] = new worldco.TrashCan();
         this.appendChild(this.stuff_[trash_pos]
                          .setPosition(trash_pos*LEN, 300));
@@ -74,6 +81,11 @@ worldco.Terminal.prototype.makeTrashCans_ = function() {
 };
 
 worldco.Terminal.prototype.makeMooks_ = function() {
+    var mook_pos = this.getEmptyPos_();
+    var clue = worldco.map.getClue(this.airport_);
+    this.stuff_[mook_pos] = new worldco.ClueMook(clue);
+    this.appendChild(this.stuff_[mook_pos]
+                     .setPosition(mook_pos*LEN, 300));
 };
 
 worldco.Terminal.prototype.addPlayer_ = function() {
