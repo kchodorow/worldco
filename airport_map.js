@@ -2,8 +2,11 @@ goog.provide('worldco.Airport');
 goog.provide('worldco.AirportMap');
 
 worldco.AirportMap = function() {
+    this.cities_ = {};
     this.start_ = new worldco.Airport("New York");
     this.dest_ = new worldco.Airport("Boston");
+    this.cities_[this.start_.name()] = this.start_;
+    this.cities_[this.dest_.name()] = this.dest_;
 
     this.cities_by_depth_ = {};
     for (var i = 0; i < worldco.AirportMap.MAX_DEPTH; ++i) {
@@ -25,9 +28,16 @@ worldco.AirportMap.prototype.getStart = function() {
     return this.start_;
 };
 
+worldco.AirportMap.prototype.getAirport = function(name) {
+    if (!(name in this.cities_)) {
+        throw new ReferenceError('No city named '+name);
+    }
+    return this.cities_[name];
+};
+
 worldco.AirportMap.prototype.finishConnections_ = function() {
     // Connect airports to lesser airports.
-    for (i in this.cities_by_depth_) {
+    for (var i in this.cities_by_depth_) {
         for (var j = 0; j < this.cities_by_depth_[i].length; ++j) {
             if (goog.math.randomInt(2) == 0) {
                 // No special outgoing.
@@ -53,6 +63,7 @@ worldco.AirportMap.prototype.generateMap_ = function(last_city) {
 
     var next_city = new worldco.Airport(
         worldco.AirportMap.CITIES[index++], last_city);
+    this.cities_[next_city.name()] = next_city;
     last_city.addOutgoing(next_city);
     this.cities_by_depth_[next_city.depth()].push(next_city);
     return this.generateMap_(next_city);

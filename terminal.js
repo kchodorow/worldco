@@ -7,6 +7,9 @@ goog.require('lime.Sprite');
 worldco.Terminal = function(airport) {
     goog.base(this);
 
+    this.appendChild(new lime.Label().setSize(WIDTH, 50).setFontSize(30)
+            .setText("Welcome to "+airport.name()).setPosition(WIDTH/2, 100));
+
     this.TERMINAL_WIDTH = 1000;
     this.TERMINAL_TOP = HEIGHT/2 - 100;
     this.TERMINAL_MIDDLE = HEIGHT/2;
