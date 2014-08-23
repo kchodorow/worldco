@@ -41,14 +41,20 @@ worldco.Gate.prototype.interact = function() {
             "Would you like to buy a ticket to " +
                 this.destination_.name() + " for $" +
                 this.ticket_for_sale_.getPrice() + "?");
-        this.getScene().appendChild(dialog);
+        var scene = this.getScene();
+        scene.appendChild(dialog);
         goog.events.listen(dialog.no_, ['mousedown'], function(e) {
             dialog.getParent().removeChild(dialog);
         });
         var ticket = this.ticket_for_sale_;
         goog.events.listen(dialog.yes_, ['mousedown'], function(e) {
-            worldco.game_state.addToInventory(ticket);
             dialog.getParent().removeChild(dialog);
+            if (worldco.game_state.getMoney() < ticket.getPrice()) {
+                scene.appendChild(
+                    worldco.resources.getDialog("Not enough money!"));
+            } else {
+                worldco.game_state.addToInventory(ticket);
+            }
         });
     }
     return [];

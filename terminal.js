@@ -96,10 +96,10 @@ worldco.Terminal.prototype.addPlayer_ = function() {
 };
 
 worldco.Terminal.prototype.addState_ = function() {
-    var wallet = new lime.Label().setSize(100, 50).setFontSize(20)
+    this.wallet_ = new lime.Label().setSize(100, 50).setFontSize(20)
             .setText('$' + worldco.game_state.getMoney())
             .setPosition(WIDTH - 100, 50);
-    this.appendChild(wallet);
+    this.appendChild(this.wallet_);
 };
 
 worldco.Terminal.prototype.tick_ = function(delta) {
@@ -116,4 +116,6 @@ worldco.Terminal.prototype.tick_ = function(delta) {
         }
     }
     this.player_.move(delta);
+
+    this.wallet_.setText('$' + worldco.game_state.getMoney());
 };

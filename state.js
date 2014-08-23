@@ -18,6 +18,7 @@ worldco.State.prototype.hasItem = function(name) {
 };
 
 worldco.State.prototype.addToInventory = function(thing) {
+    this.money_ -= thing.getPrice();
     this.inventory_[thing.name()] = thing;
 };
 
