@@ -9,8 +9,10 @@ worldco.Gate = function(destination) {
 
     this.setSize(LEN, LEN).setFill('#ccc');
     var lbl = worldco.resources.getLabel(destination.name())
-            .setSize(LEN*2, 50).setFontSize(30).setPosition(0, 0);
+            .setSize(LEN*2, 50).setFontSize(30).setPosition(0, -LEN*2);
     this.appendChild(lbl);
+
+    this.appendChild(worldco.resources.getAgent().setScale(2,2));
 
     this.ticket_for_sale_ = new worldco.Ticket();
     this.ticket_for_sale_.setDestination(this.destination_);

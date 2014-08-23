@@ -16,6 +16,11 @@ worldco.Terminal = function(airport) {
 
     this.airport_ = airport;
     this.paused_ = false;
+
+    this.appendChild(
+        new lime.Sprite().setSize(WIDTH, HEIGHT)
+            .setFill(worldco.resources.LIGHT_BLUE)
+            .setPosition(WIDTH/2, HEIGHT/2));
     this.appendChild(worldco.resources.getLabel("Welcome to "+airport.name())
                      .setSize(WIDTH, 50).setFontSize(LEN)
                      .setPosition(WIDTH/2, 100));
@@ -23,9 +28,7 @@ worldco.Terminal = function(airport) {
     this.TERMINAL_WIDTH = 1000;
     this.TERMINAL_TOP = HEIGHT/2 - 100;
     this.TERMINAL_MIDDLE = HEIGHT/2;
-    this.airport_ = airport;
-    this.appendChild(new lime.Sprite().setSize(1000, 200).setFill('#ddd')
-                     .setPosition(WIDTH/2, HEIGHT/2).setStroke(1, '#000'));
+
     this.addStuff_();
     this.addPlayer_();
     this.addState_();
@@ -45,7 +48,7 @@ worldco.Terminal.prototype.makeGates_ = function() {
 
         var gate = new worldco.Gate(dest);
         this.stuff_[stuff_index] = gate;
-        gate.setPosition(stuff_index * LEN, this.TERMINAL_TOP);
+        gate.setPosition(stuff_index * LEN, HEIGHT/2);
         this.appendChild(gate);
     }
 };
@@ -77,7 +80,7 @@ worldco.Terminal.prototype.makeTrashCans_ = function() {
         var trash_pos = this.getEmptyPos_();
         this.stuff_[trash_pos] = new worldco.TrashCan();
         this.appendChild(this.stuff_[trash_pos]
-                         .setPosition(trash_pos*LEN, 300));
+                         .setPosition(trash_pos*LEN, HEIGHT/2 + 100));
     }
 };
 
@@ -86,7 +89,7 @@ worldco.Terminal.prototype.makeMooks_ = function() {
     var clue = worldco.map.getClue(this.airport_);
     this.stuff_[mook_pos] = new worldco.ClueMook(clue);
     this.appendChild(this.stuff_[mook_pos]
-                     .setPosition(mook_pos*LEN, 300));
+                     .setPosition(mook_pos*LEN, HEIGHT/2 + 100));
 };
 
 worldco.Terminal.prototype.addPlayer_ = function() {

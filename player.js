@@ -6,7 +6,7 @@ worldco.Player = function() {
     goog.base(this);
 
     this.appendChild(worldco.resources.getPlayer().setScale(2, 2));
-    this.setPosition(WIDTH/2, HEIGHT/2);
+    this.setPosition(WIDTH/2, HEIGHT * .8);
     this.MAX_SPEED = .4;
     this.STOP = new goog.math.Coordinate(0, 0);
     this.intention_ = this.STOP;

@@ -28,6 +28,14 @@ worldco.data.Resources.prototype.getTrashCan = function() {
     return new lime.Sprite().setFill(this.spriteSheet_.getFrame('trash.png'));
 };
 
+worldco.data.Resources.prototype.getMook = function() {
+    return new lime.Sprite().setFill(this.spriteSheet_.getFrame('suit.png'));
+};
+
+worldco.data.Resources.prototype.getAgent = function() {
+    return new lime.Sprite().setFill(this.spriteSheet_.getFrame('agent.png'));
+};
+
 worldco.data.Resources.prototype.getLabel = function(text) {
     return new lime.Label().setText(text)
         .setFontSize(this.FONT_SIZE)
