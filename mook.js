@@ -21,10 +21,10 @@ worldco.ClueMook = function(clue) {
 goog.inherits(worldco.ClueMook, worldco.Stuff);
 
 worldco.ClueMook.prototype.interact = function() {
-    var info = new lime.Label().setSize(100, 50).setFontSize(20)
-            .setText("I hear there are flights to " + this.dest_ + " from "
-                     + this.source_)
-            .setPosition(0, 0);
-    this.appendChild(info);
+    this.getScene().appendChild(
+        worldco.resources.getDialog(
+            "\"I hear there are flights from " + this.source_ + " to "
+                + this.dest_ + ".\""));
+
     return [];
 };

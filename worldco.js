@@ -6,12 +6,15 @@ goog.require('worldco.AirportMap');
 goog.require('worldco.FinalTerminal');
 goog.require('worldco.State');
 goog.require('worldco.Terminal');
+goog.require('worldco.data.Resources');
 
 var WIDTH = 1024;
 var HEIGHT = 768;
 var LEN = 44;
 
 worldco.start = function(){
+    worldco.resources = new worldco.data.Resources();
+
     worldco.game_state = new worldco.State();
     worldco.map = new worldco.AirportMap();
     var jfk = worldco.map.getStart();
