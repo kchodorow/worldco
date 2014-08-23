@@ -13,10 +13,10 @@ worldco.start = function(){
     var map = new worldco.AirportMap();
     var jfk = map.getStart();
 
-    var director = new lime.Director(document.body,1024,768);
+    worldco.director = new lime.Director(document.body,1024,768);
     var scene = new worldco.Terminal(jfk);
 
-    director.replaceScene(scene);
+    worldco.director.replaceScene(scene);
 };
 
 goog.exportSymbol('worldco.start', worldco.start);

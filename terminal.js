@@ -14,7 +14,6 @@ worldco.Terminal = function(airport) {
     this.appendChild(new lime.Sprite().setSize(1000, 200).setFill('#ddd')
                      .setPosition(WIDTH/2, HEIGHT/2).setStroke(1, '#000'));
     this.makeGates_();
-
 };
 
 goog.inherits(worldco.Terminal, lime.Scene);
@@ -23,17 +22,26 @@ worldco.Terminal.prototype.makeGates_ = function() {
     var outgoing = this.airport_.getOutgoing();
     var distance_between_gates = (this.TERMINAL_WIDTH - 2*LEN)/outgoing.length;
     for (var i in outgoing) {
-        var gate = new lime.Sprite().setSize(LEN, LEN)
-                .setPosition(LEN + distance_between_gates * i, this.TERMINAL_TOP)
-                .setFill('#ccc');
-        var lbl = new lime.Label().setSize(LEN*2, 50).setFontSize(30)
-                .setText(outgoing[i].name()).setPosition(0, 0);
-        gate.appendChild(lbl);
+        var dest = outgoing[i];
+        var gate = new worldco.Gate(dest);
+        gate.setPosition(LEN + distance_between_gates * i, this.TERMINAL_TOP);
         this.appendChild(gate);
+        goog.events.listen(gate, ['mousedown'], function(e) {
+            worldco.director.replaceScene(new worldco.Terminal(dest));
+        });
     }
 };
 
 
 worldco.Gate = function(destination) {
+    goog.base(this);
+
     this.destination_ = destination;
+
+    this.setSize(LEN, LEN).setFill('#ccc');
+    var lbl = new lime.Label().setSize(LEN*2, 50).setFontSize(30)
+            .setText(destination.name()).setPosition(0, 0);
+    this.appendChild(lbl);
 };
+
+goog.inherits(worldco.Gate, lime.Sprite);
