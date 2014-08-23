@@ -5,6 +5,7 @@ goog.require('lime.Scene');
 goog.require('lime.Sprite');
 
 goog.require('lib.Keyboard');
+goog.require('worldco.Gate');
 goog.require('worldco.Player');
 goog.require('worldco.Stuff');
 goog.require('worldco.TrashCan');
@@ -22,7 +23,6 @@ worldco.Terminal = function(airport) {
     this.airport_ = airport;
     this.appendChild(new lime.Sprite().setSize(1000, 200).setFill('#ddd')
                      .setPosition(WIDTH/2, HEIGHT/2).setStroke(1, '#000'));
-    this.makeGates_();
     this.addStuff_();
     this.addPlayer_();
     this.addState_();
@@ -34,15 +34,16 @@ goog.inherits(worldco.Terminal, lime.Scene);
 
 worldco.Terminal.prototype.makeGates_ = function() {
     var outgoing = this.airport_.getOutgoing();
-    var distance_between_gates = (this.TERMINAL_WIDTH - 2*LEN)/outgoing.length;
+    var distance_between_gates = Math.floor(
+        this.TERMINAL_WIDTH/(outgoing.length * LEN));
     for (var i in outgoing) {
         var dest = outgoing[i];
+        var stuff_index = distance_between_gates * i;
+
         var gate = new worldco.Gate(dest);
-        gate.setPosition(LEN + distance_between_gates * i, this.TERMINAL_TOP);
+        this.stuff_[stuff_index] = gate;
+        gate.setPosition(stuff_index * LEN, this.TERMINAL_TOP);
         this.appendChild(gate);
-        goog.events.listen(gate, ['mousedown'], function(e) {
-            worldco.director.replaceScene(new worldco.Terminal(dest));
-        });
     }
 };
 
@@ -51,6 +52,7 @@ worldco.Terminal.prototype.addStuff_ = function() {
     for (var i = 0; i < this.stuff_.length; ++i) {
         this.stuff_[i] = worldco.Stuff.NOTHING;
     }
+    this.makeGates_();
 
     this.stuff_[10] = new worldco.TrashCan();
     this.appendChild(this.stuff_[10].setPosition(10*LEN, 300));
@@ -85,16 +87,3 @@ worldco.Terminal.prototype.tick_ = function(delta) {
     }
     this.player_.move(delta);
 };
-
-worldco.Gate = function(destination) {
-    goog.base(this);
-
-    this.destination_ = destination;
-
-    this.setSize(LEN, LEN).setFill('#ccc');
-    var lbl = new lime.Label().setSize(LEN*2, 50).setFontSize(30)
-            .setText(destination.name()).setPosition(0, 0);
-    this.appendChild(lbl);
-};
-
-goog.inherits(worldco.Gate, lime.Sprite);

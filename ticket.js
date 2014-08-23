@@ -13,12 +13,16 @@ worldco.Ticket = function() {
 goog.inherits(worldco.Ticket, lime.Sprite);
 
 worldco.Ticket.MIN_PRICE = 400;
-worldco.Ticket.PRICE_DIFF = 600;
+worldco.Ticket.PRICE_DIFF = 200;
 
 worldco.Ticket.getRandom = function() {
     var ticket = new worldco.Ticket();
     ticket.setDestination(worldco.map.getRandom());
     return ticket;
+};
+
+worldco.Ticket.getName = function(dest) {
+    return "Ticket to " + dest.name();
 };
 
 worldco.Ticket.prototype.setDestination = function(dest) {
@@ -34,5 +38,5 @@ worldco.Ticket.prototype.getPrice = function() {
 };
 
 worldco.Ticket.prototype.name = function() {
-    return "Ticket to " + this.to_.name();
+    return worldco.Ticket.getName(this.to_);
 };
