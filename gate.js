@@ -37,12 +37,19 @@ worldco.Gate.prototype.interact = function() {
                 new worldco.Terminal(destination));
         });
     } else {
-        var agent = new lime.Label().setSize(LEN*2, 50).setFontSize(30)
-            .setText("Would you like to buy a ticket to " +
-                     this.destination_.name() + " for $" +
-                     this.ticket_for_sale_.getPrice() + "?")
-            .setPosition(0, 0);
-        this.appendChild(agent);
+        var dialog = worldco.resources.getYesNoDialog(
+            "Would you like to buy a ticket to " +
+                this.destination_.name() + " for $" +
+                this.ticket_for_sale_.getPrice() + "?");
+        this.getScene().appendChild(dialog);
+        goog.events.listen(dialog.no_, ['mousedown'], function(e) {
+            dialog.getParent().removeChild(dialog);
+        });
+        var ticket = this.ticket_for_sale_;
+        goog.events.listen(dialog.yes_, ['mousedown'], function(e) {
+            worldco.game_state.addToInventory(ticket);
+            dialog.getParent().removeChild(dialog);
+        });
     }
     return [];
 };
