@@ -5,6 +5,10 @@ goog.require('lime.Director');
 goog.require('worldco.AirportMap');
 goog.require('worldco.Terminal');
 
+var WIDTH = 1024;
+var HEIGHT = 768;
+var LEN = 44;
+
 worldco.start = function(){
     var map = new worldco.AirportMap();
     var jfk = map.getStart();

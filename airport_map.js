@@ -107,5 +107,9 @@ worldco.Airport.prototype.depth = function() {
 };
 
 worldco.Airport.prototype.addOutgoing = function(city) {
-    return this.outgoing_.push(city);
+    this.outgoing_.push(city);
+};
+
+worldco.Airport.prototype.getOutgoing = function() {
+    return this.outgoing_;
 };
