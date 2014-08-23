@@ -21,8 +21,21 @@ goog.inherits(worldco.Gate, worldco.Stuff);
 
 worldco.Gate.prototype.interact = function() {
     if (worldco.game_state.hasItem(this.ticket_needed_)) {
-        worldco.game_state.removeFromInventory(this.ticket_needed_);
-        worldco.director.replaceScene(new worldco.Terminal(this.destination_));
+        var dialog = worldco.resources.getYesNoDialog(
+            "Would you like to use your ticket to " + this.destination_.name()
+                + "?");
+        this.getScene().appendChild(dialog);
+        goog.events.listen(dialog.no_, ['mousedown'], function(e) {
+            dialog.getParent().removeChild(dialog);
+        });
+
+        // For the closure.
+        var destination = this.destination_;
+        goog.events.listen(dialog.yes_, ['mousedown'], function(e) {
+            worldco.game_state.removeFromInventory(this.ticket_needed_);
+            worldco.director.replaceScene(
+                new worldco.Terminal(destination));
+        });
     } else {
         var agent = new lime.Label().setSize(LEN*2, 50).setFontSize(30)
             .setText("Would you like to buy a ticket to " +
