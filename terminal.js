@@ -44,7 +44,7 @@ worldco.Terminal.prototype.makeGates_ = function() {
         this.TERMINAL_WIDTH/(outgoing.length * LEN));
     for (var i in outgoing) {
         var dest = outgoing[i];
-        var stuff_index = distance_between_gates * i;
+        var stuff_index = distance_between_gates * i + 2;
 
         var gate = new worldco.Gate(dest);
         this.stuff_[stuff_index] = gate;
