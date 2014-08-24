@@ -12,7 +12,7 @@ worldco.Gate = function(destination) {
                      .setFill(worldco.resources.BROWN)
                      .setPosition(0, -10));
     var lbl = worldco.resources.getLabel(destination.name())
-            .setSize(LEN*2, 50).setFontSize(30).setPosition(0, -LEN*2);
+            .setSize(120, 50).setFontSize(30).setPosition(0, -LEN*2);
     this.appendChild(lbl);
 
     this.appendChild(worldco.resources.getAgent().setScale(2,2));
