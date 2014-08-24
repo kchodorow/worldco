@@ -9,6 +9,7 @@ goog.require('lime.Scene');
 goog.require('lime.Sprite');
 
 goog.require('lib.Keyboard');
+goog.require('worldco.Bathroom');
 goog.require('worldco.ClueMook');
 goog.require('worldco.HelpDesk');
 goog.require('worldco.Gate');
@@ -61,6 +62,9 @@ worldco.Terminal.prototype.makeGates_ = function() {
                 + outgoing[i].name());
         var dest = outgoing[i];
         var stuff_index = this.getEmptyPos_();
+        if (stuff_index == -1) {
+            return;
+        }
 
         var gate = new worldco.Gate(dest);
         this.stuff_[stuff_index] = gate;
@@ -75,6 +79,7 @@ worldco.Terminal.prototype.addStuff_ = function() {
         this.stuff_[i] = worldco.Stuff.NOTHING;
     }
     this.makeHelpDesk_();
+    this.makeBathroom_();
     this.makeGates_();
     this.makeTrashCans_();
     this.makeMooks_();
@@ -88,19 +93,38 @@ worldco.Terminal.prototype.addStuff_ = function() {
     }
 };
 
+worldco.Terminal.prototype.makeBathroom_ = function() {
+    var bathroom = new worldco.Bathroom();
+    var stuff_index = this.getEmptyPos_();
+    if (stuff_index == -1) {
+        return;
+    }
+    this.stuff_[stuff_index] = bathroom;
+    bathroom.y_ = this.GATES;
+    this.appendChild(bathroom);
+};
+
 worldco.Terminal.prototype.makeHelpDesk_ = function() {
     var index = this.getEmptyPos_();
+    if (index == -1) {
+        return;
+    }
+
     this.stuff_[index] = new worldco.HelpDesk();
     this.stuff_[index].y_ = this.GATES;
     this.appendChild(this.stuff_[index]);
 };
 
 worldco.Terminal.prototype.getEmptyPos_ = function() {
+    var seen = 0;
     var trash_pos = goog.math.randomInt(this.stuff_.length-1);
     while (trash_pos == 0 || this.stuff_[trash_pos] != worldco.Stuff.NOTHING) {
         ++trash_pos;
         if (trash_pos == this.stuff_.length-1) {
             trash_pos = 1;
+            if (++seen == 2) {
+                return -1;
+            }
         }
     }
     return trash_pos;
@@ -111,6 +135,9 @@ worldco.Terminal.prototype.makeTrashCans_ = function() {
     var NUM_TRASHCANS = goog.math.randomInt(3) + 1;
     for (var i = 0; i < NUM_TRASHCANS; ++i) {
         var trash_pos = this.getEmptyPos_();
+        if (trash_pos == -1) {
+            return;
+        }
         this.stuff_[trash_pos] = new worldco.TrashCan();
         this.stuff_[trash_pos].y_ = this.PEDESTRIANS;
         this.appendChild(this.stuff_[trash_pos]);
@@ -121,6 +148,9 @@ worldco.Terminal.prototype.makeMooks_ = function() {
     var num_mooks = goog.math.randomInt(2) + 1;
     for (var i = 0; i < num_mooks; ++i) {
         var mook_pos = this.getEmptyPos_();
+        if (mook_pos == -1) {
+            return;
+        }
         var clue = worldco.map.getClue(this.airport_);
         if (this.airport_.name() == worldco.map.getStart().name() && i == 0) {
             var dest = worldco.map.getDestination();

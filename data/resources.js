@@ -78,6 +78,14 @@ worldco.data.Resources.prototype.getTicket = function() {
     return new lime.Sprite().setFill(this.spriteSheet_.getFrame('pass.png'));
 };
 
+worldco.data.Resources.prototype.getLadiesRoom = function() {
+    return new lime.Sprite().setFill(this.spriteSheet_.getFrame('ladies.png'));
+};
+
+worldco.data.Resources.prototype.getStink = function() {
+    return new lime.Sprite().setFill(this.spriteSheet_.getFrame('stink.png'));
+};
+
 worldco.data.Resources.prototype.getLabel = function(text) {
     return new lime.Label().setText(text)
         .setFontSize(this.FONT_SIZE)

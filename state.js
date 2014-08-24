@@ -12,6 +12,19 @@ worldco.State = function() {
     this.inventory_[boston.name()] = boston;
     this.money_ = 1000;
     this.clues_ = [];
+    this.smelliness_ = 0;
+};
+
+worldco.State.prototype.increaseSmelliness = function() {
+    this.smelliness_++;
+};
+
+worldco.State.prototype.wash = function() {
+    this.smelliness_ = Math.max(0, this.smelliness_ - 5);
+};
+
+worldco.State.prototype.getSmelliness = function() {
+    return this.smelliness_;
 };
 
 worldco.State.prototype.getMoney = function() {

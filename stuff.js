@@ -27,7 +27,11 @@ worldco.TrashCan = function() {
 goog.inherits(worldco.TrashCan, worldco.Stuff);
 
 worldco.TrashCan.prototype.interact = function() {
+    worldco.game_state.increaseSmelliness();
     if (this.empty_) {
+        var label = worldco.resources.getDialog(
+            "You found some trash.");
+        this.getScene().appendChild(label);
         return [];
     } else if (goog.math.randomInt(2) == 0) {
         this.empty_ = true;

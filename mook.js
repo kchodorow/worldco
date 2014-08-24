@@ -23,6 +23,14 @@ worldco.ClueMook = function(clue) {
 goog.inherits(worldco.ClueMook, worldco.Stuff);
 
 worldco.ClueMook.prototype.interact = function() {
+    if (worldco.game_state.getSmelliness() > 1) {
+        worldco.game_state.spend(-1*(goog.math.randomInt(15) + 2));
+        this.getScene().appendChild(
+            worldco.resources.getDialog(
+                "\"You poor smelly girl.  Here's a couple bucks.\""));
+        return [];
+    }
+
     if (this.first_) {
         this.first_ = false;
         worldco.game_state.addClue(

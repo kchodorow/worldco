@@ -1,5 +1,8 @@
 goog.provide('worldco.Player');
 
+goog.require('lime.animation.Loop');
+goog.require('lime.animation.MoveBy');
+goog.require('lime.animation.Sequence');
 goog.require('lime.Sprite');
 
 worldco.Player = function() {
@@ -11,6 +14,14 @@ worldco.Player = function() {
     this.STOP = new goog.math.Coordinate(0, 0);
     this.intention_ = this.STOP;
     this.is_interacting_ = false;
+
+    this.stink_lines_ = worldco.resources.getStink();
+    this.appendChild(this.stink_lines_.setPosition(0, -LEN * 1.5)
+                     .setOpacity(0));
+    this.stink_lines_.runAction(new lime.animation.Loop(
+        new lime.animation.Sequence(
+            new lime.animation.MoveBy(0, -5),
+            new lime.animation.MoveBy(0, 5))));
 };
 
 goog.inherits(worldco.Player, lime.Sprite);
@@ -53,4 +64,9 @@ worldco.Player.prototype.move = function(delta) {
     this.setIntention(this.STOP);
     this.setPosition(pos);
     this.is_interacting_ = false;
+
+    // 33% smelly
+    var smelliness = worldco.game_state.getSmelliness();
+    smelliness = Math.min(smelliness, 3);
+    this.stink_lines_.setOpacity(smelliness/3);
 };
