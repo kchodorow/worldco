@@ -65,6 +65,7 @@ worldco.Gate.prototype.interact = function() {
                 scene.appendChild(
                     worldco.resources.getDialog("Not enough money!"));
             } else {
+                worldco.game_state.spend(ticket.getPrice());
                 if (destination.name() == worldco.map.getDestination().name()) {
                     worldco.director.replaceScene(new worldco.OutroScene());
                 } else {
