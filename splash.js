@@ -61,21 +61,22 @@ goog.inherits(worldco.IntroScene, lime.Scene);
 worldco.OutroScene = function() {
     goog.base(this);
 
-    var BASELINE = 100;
-    var LINE_HEIGHT = 100;
-    var logo = worldco.resources.getLabel("WorldCo Airlines").setFontSize(LEN)
-            .setPosition(WIDTH/2, BASELINE);
-    var tagline = worldco.resources.getLabel("Connecting worlds")
-            .setPosition(WIDTH/2, BASELINE + LINE_HEIGHT);
+    var logo = worldco.Splash.logo();
 
-    var apology = worldco.resources.getLabel(
+    var welcome = worldco.resources.getLabel("Welcome to Boston!")
+            .setPosition(WIDTH/2, worldco.Splash.BASELINE +
+                         worldco.Splash.LINE_HEIGHT * 2)
+            .setFontSize(LEN);
+
+    var thanks = worldco.resources.getLabel(
         "Thank you for flying the friendly skies with WorldCo! Have a great\n"
             + "day in Boston, or wherever your final destination may be.")
-            .setPosition(WIDTH/2, BASELINE + 3*LINE_HEIGHT);
+            .setPosition(WIDTH/2, worldco.Splash.BASELINE +
+                         3*worldco.Splash.LINE_HEIGHT);
 
+    this.appendChild(welcome);
     this.appendChild(logo);
-    this.appendChild(tagline);
-    this.appendChild(apology);
+    this.appendChild(thanks);
 };
 
 goog.inherits(worldco.OutroScene, lime.Scene);

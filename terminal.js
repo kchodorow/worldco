@@ -11,6 +11,7 @@ goog.require('lime.Sprite');
 goog.require('lib.Keyboard');
 goog.require('worldco.ClueMook');
 goog.require('worldco.Gate');
+goog.require('worldco.OutroScene');
 goog.require('worldco.Player');
 goog.require('worldco.Stuff');
 goog.require('worldco.TrashCan');
@@ -117,6 +118,10 @@ worldco.Terminal.prototype.addPlayer_ = function() {
     worldco.keyboard.bind(
         goog.events.KeyCodes.M,
         goog.bind(worldco.resources.mute, worldco.resources));
+    worldco.keyboard.bind(
+        goog.events.KeyCodes.E, function(e) {
+            worldco.director.replaceScene(new worldco.OutroScene());
+        });
 };
 
 worldco.Terminal.prototype.addState_ = function() {

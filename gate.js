@@ -1,6 +1,7 @@
 goog.provide('worldco.Gate');
 
 goog.require('lime.RoundedRect');
+goog.require('worldco.OutroScene');
 goog.require('worldco.Stuff');
 
 worldco.Gate = function(destination) {
@@ -39,12 +40,16 @@ worldco.Gate.prototype.interact = function() {
         var ticket = this.ticket_needed_;
         goog.events.listen(dialog.yes_, ['mousedown'], function(e) {
             worldco.game_state.removeFromInventory(ticket);
-            worldco.director.replaceScene(
-                new worldco.Terminal(destination));
+            if (destination.name() == worldco.map.getDestination().name()) {
+                worldco.director.replaceScene(new worldco.OutroScene());
+            } else {
+                worldco.director.replaceScene(
+                    new worldco.Terminal(destination));
+            }
         });
     } else {
         var dialog = worldco.resources.getYesNoDialog(
-            "Would you like to buy a ticket to " +
+            "Would you like to fly to " +
                 this.destination_.name() + " for $" +
                 this.ticket_for_sale_.getPrice() + "?");
         var scene = this.getScene();
@@ -53,13 +58,19 @@ worldco.Gate.prototype.interact = function() {
             dialog.getParent().removeChild(dialog);
         });
         var ticket = this.ticket_for_sale_;
+        var destination = this.destination_;
         goog.events.listen(dialog.yes_, ['mousedown'], function(e) {
             dialog.getParent().removeChild(dialog);
             if (worldco.game_state.getMoney() < ticket.getPrice()) {
                 scene.appendChild(
                     worldco.resources.getDialog("Not enough money!"));
             } else {
-                worldco.game_state.addToInventory(ticket);
+                if (destination.name() == worldco.map.getDestination().name()) {
+                    worldco.director.replaceScene(new worldco.OutroScene());
+                } else {
+                    worldco.director.replaceScene(
+                        new worldco.Terminal(destination));
+                }
             }
         });
     }
