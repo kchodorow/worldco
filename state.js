@@ -21,6 +21,7 @@ worldco.State.prototype.increaseSmelliness = function() {
 
 worldco.State.prototype.wash = function() {
     this.smelliness_ = Math.max(0, this.smelliness_ - 5);
+    this.smelliness_ = Math.min(this.smelliness_, 1);
 };
 
 worldco.State.prototype.getSmelliness = function() {

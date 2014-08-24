@@ -17,6 +17,7 @@ goog.require('worldco.OutroScene');
 goog.require('worldco.Player');
 goog.require('worldco.Stuff');
 goog.require('worldco.TrashCan');
+goog.require('worldco.Tsa');
 
 worldco.Terminal = function(airport) {
     goog.base(this);
@@ -44,7 +45,6 @@ worldco.Terminal = function(airport) {
     this.TSA = this.BASELINE_ + 210;
 
     this.addStuff_();
-    this.addPlayer_();
     this.addState_();
 
     lime.scheduleManager.schedule(this.tick_, this);
@@ -83,6 +83,8 @@ worldco.Terminal.prototype.addStuff_ = function() {
     this.makeGates_();
     this.makeTrashCans_();
     this.makeMooks_();
+    this.addPlayer_();
+    this.makeTsa_();
 
     for (var i = 0; i < this.stuff_.length; ++i) {
         if (this.stuff_[i] == worldco.Stuff.NOTHING) {
@@ -91,6 +93,17 @@ worldco.Terminal.prototype.addStuff_ = function() {
             this.stuff_[i].setPosition(i*LEN*2, this.stuff_[i].y_);
         }
     }
+};
+
+worldco.Terminal.prototype.makeTsa_ = function() {
+    var bathroom = new worldco.Tsa();
+    var stuff_index = this.getEmptyPos_();
+    if (stuff_index == -1) {
+        return;
+    }
+    this.stuff_[stuff_index] = bathroom;
+    bathroom.y_ = this.TSA;
+    this.appendChild(bathroom);
 };
 
 worldco.Terminal.prototype.makeBathroom_ = function() {

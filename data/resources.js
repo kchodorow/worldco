@@ -86,6 +86,10 @@ worldco.data.Resources.prototype.getStink = function() {
     return new lime.Sprite().setFill(this.spriteSheet_.getFrame('stink.png'));
 };
 
+worldco.data.Resources.prototype.getTsa = function() {
+    return new lime.Sprite().setFill(this.spriteSheet_.getFrame('tsa.png'));
+};
+
 worldco.data.Resources.prototype.getLabel = function(text) {
     return new lime.Label().setText(text)
         .setFontSize(this.FONT_SIZE)
