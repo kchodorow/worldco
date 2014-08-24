@@ -4,9 +4,7 @@ goog.provide('worldco.AirportMap');
 worldco.AirportMap = function() {
     this.cities_ = {};
     this.start_ = new worldco.Airport("New York");
-    this.dest_ = new worldco.Airport("Boston");
     this.cities_[this.start_.name()] = this.start_;
-    this.cities_[this.dest_.name()] = this.dest_;
 
     this.cities_by_depth_ = {};
     for (var i = 0; i < worldco.AirportMap.MAX_DEPTH; ++i) {
@@ -19,6 +17,8 @@ worldco.AirportMap = function() {
         last_city = this.generateMap_(this.start_);
     }
 
+    this.dest_ = new worldco.Airport("Boston", last_city);
+    this.cities_[this.dest_.name()] = this.dest_;
     last_city.addOutgoing(this.dest_);
     this.finishConnections_();
     this.names_ = Object.keys(this.cities_);

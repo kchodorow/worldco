@@ -122,6 +122,10 @@ worldco.Terminal.prototype.makeMooks_ = function() {
     for (var i = 0; i < num_mooks; ++i) {
         var mook_pos = this.getEmptyPos_();
         var clue = worldco.map.getClue(this.airport_);
+        if (this.airport_.name() == worldco.map.getStart().name() && i == 0) {
+            var dest = worldco.map.getDestination();
+            clue = {to: dest.name(), from: dest.getOutgoing()[0].name()};
+        }
         this.stuff_[mook_pos] = new worldco.ClueMook(clue);
         this.stuff_[mook_pos].y_ = this.PEDESTRIANS;
         this.appendChild(this.stuff_[mook_pos]);

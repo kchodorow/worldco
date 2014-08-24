@@ -33,7 +33,7 @@ worldco.HelpDesk.prototype.interact = function() {
         break;
     case 2:
         var dialog = worldco.resources.getDialog(
-            "I'll give you $50 if you go away.");
+            "I'll give you $50 for you to leave.");
         this.getScene().appendChild(dialog);
         worldco.game_state.spend(-50);
         break;
