@@ -1,5 +1,7 @@
 goog.provide('worldco.data.Resources');
 
+goog.require('lime.animation.KeyframeAnimation');
+goog.require('lime.audio.Audio');
 goog.require('lime.parser.JSON');
 goog.require('lime.ASSETS.worldco.json');
 goog.require('lime.SpriteSheet');
@@ -18,6 +20,24 @@ worldco.data.Resources = function() {
     this.spriteSheet_ = new lime.SpriteSheet('assets/worldco.png',
                                              lime.ASSETS.worldco.json,
                                              lime.parser.JSON);
+
+    try {
+        // TODO: .ogg for Firefox!
+        this.audio_ = new lime.audio.Audio('assets/muzak.mp3');
+        this.audio_.play(true);
+        this.mute_ = false;
+    } catch (e) {
+        console.log("Audio error: " + e);
+    }
+};
+
+worldco.data.Resources.prototype.mute = function() {
+    this.mute_ = !this.mute_;
+    if (this.mute_) {
+        this.audio_.stop();
+    } else {
+        this.audio_.play();
+    }
 };
 
 worldco.data.Resources.prototype.getPlayer = function() {

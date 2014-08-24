@@ -97,6 +97,8 @@ worldco.Terminal.prototype.addPlayer_ = function() {
     this.appendChild(this.player_);
     var keyboard = new lib.Keyboard(this);
     keyboard.bindWasd(goog.bind(this.player_.setIntention, this.player_));
+    keyboard.bind(goog.events.KeyCodes.M,
+                  goog.bind(worldco.resources.mute, worldco.resources));
 };
 
 worldco.Terminal.prototype.addState_ = function() {
