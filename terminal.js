@@ -98,7 +98,7 @@ worldco.Terminal.prototype.makeHelpDesk_ = function() {
 
 worldco.Terminal.prototype.getEmptyPos_ = function() {
     var trash_pos = goog.math.randomInt(this.stuff_.length-1);
-    while (this.stuff_[trash_pos] != worldco.Stuff.NOTHING) {
+    while (trash_pos == 0 || this.stuff_[trash_pos] != worldco.Stuff.NOTHING) {
         ++trash_pos;
         if (trash_pos == this.stuff_.length-1) {
             trash_pos = 1;
@@ -119,11 +119,14 @@ worldco.Terminal.prototype.makeTrashCans_ = function() {
 };
 
 worldco.Terminal.prototype.makeMooks_ = function() {
-    var mook_pos = this.getEmptyPos_();
-    var clue = worldco.map.getClue(this.airport_);
-    this.stuff_[mook_pos] = new worldco.ClueMook(clue);
-    this.stuff_[mook_pos].y_ = this.PEDESTRIANS;
-    this.appendChild(this.stuff_[mook_pos]);
+    var num_mooks = goog.math.randomInt(2) + 1;
+    for (var i = 0; i < num_mooks; ++i) {
+        var mook_pos = this.getEmptyPos_();
+        var clue = worldco.map.getClue(this.airport_);
+        this.stuff_[mook_pos] = new worldco.ClueMook(clue);
+        this.stuff_[mook_pos].y_ = this.PEDESTRIANS;
+        this.appendChild(this.stuff_[mook_pos]);
+    }
 };
 
 worldco.Terminal.prototype.addPlayer_ = function() {
