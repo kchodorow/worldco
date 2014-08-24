@@ -15,7 +15,7 @@ worldco.ClueMook = function(clue) {
 
     this.dest_ = clue.to;
     this.source_ = clue.from;
-    this.appendChild(worldco.resources.getMook()).setScale(2, 2);
+    this.appendChild(worldco.resources.getMook());
     this.setSize(LEN, LEN);
     this.first_ = true;
 };

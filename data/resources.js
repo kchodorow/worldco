@@ -48,6 +48,20 @@ worldco.data.Resources.prototype.getPlayer = function() {
     return new lime.Sprite().setFill(this.spriteSheet_.getFrame('walk1.png'));
 };
 
+worldco.data.Resources.prototype.getPlayerFill = function() {
+    return this.spriteSheet_.getFrame('walk1.png');
+};
+
+worldco.data.Resources.prototype.getPlayerWalk = function() {
+    var walk = new lime.animation.KeyframeAnimation()
+        .setDelay(1/8).setLooping(true);
+    walk.addFrame(this.spriteSheet_.getFrame('walk1.png'));
+    walk.addFrame(this.spriteSheet_.getFrame('walk2.png'));
+    walk.addFrame(this.spriteSheet_.getFrame('walk3.png'));
+    walk.addFrame(this.spriteSheet_.getFrame('walk4.png'));
+    return walk;
+};
+
 worldco.data.Resources.prototype.getTrashCan = function() {
     return new lime.Sprite().setFill(this.spriteSheet_.getFrame('trash.png'));
 };

@@ -11,7 +11,7 @@ worldco.Splash = {
 worldco.Splash.logo = function() {
     var logo_holder = new lime.Sprite()
             .setPosition(WIDTH/2, worldco.Splash.BASELINE);
-    var logo = worldco.resources.getLogo().setScale(2, 2)
+    var logo = worldco.resources.getLogo()
             .setPosition(-300, 0);
     var logo_text = worldco.resources.getLabel("WorldCo Airlines")
             .setFontSize(LEN*2).setPosition(50, 0);

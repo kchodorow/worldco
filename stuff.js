@@ -20,7 +20,7 @@ worldco.Stuff.NOTHING = new worldco.Stuff();
 worldco.TrashCan = function() {
     goog.base(this);
 
-    this.appendChild(worldco.resources.getTrashCan().setScale(2, 2));
+    this.appendChild(worldco.resources.getTrashCan());
     this.empty_ = false;
 };
 

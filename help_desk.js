@@ -5,7 +5,7 @@ goog.require('worldco.Stuff');
 worldco.HelpDesk = function() {
     goog.base(this);
 
-    this.appendChild(worldco.resources.getAgent().setScale(2, 2)
+    this.appendChild(worldco.resources.getAgent()
                      .setPosition(0, -5));
     var desk = new lime.Sprite().setSize(LEN * 2, LEN)
             .setFill(worldco.resources.TAN).setPosition(0, LEN/2);

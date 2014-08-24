@@ -11,7 +11,7 @@ worldco.Ticket = function() {
 
     this.price_ = goog.math.randomInt(worldco.Ticket.PRICE_DIFF) +
         worldco.Ticket.MIN_PRICE;
-    this.appendChild(worldco.resources.getTicket().setScale(2, 2));
+    this.appendChild(worldco.resources.getTicket());
     this.runAction(new lime.animation.Spawn(
         new lime.animation.MoveTo(WIDTH - 100, 100),
         new lime.animation.FadeTo(0),

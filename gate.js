@@ -16,7 +16,7 @@ worldco.Gate = function(destination) {
             .setSize(150, 50).setFontSize(30).setPosition(0, -LEN*2);
     this.appendChild(lbl);
 
-    this.appendChild(worldco.resources.getAgent().setScale(2,2));
+    this.appendChild(worldco.resources.getAgent());
 
     this.ticket_for_sale_ = new worldco.Ticket();
     this.ticket_for_sale_.setDestination(this.destination_);

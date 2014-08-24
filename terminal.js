@@ -27,8 +27,7 @@ worldco.Terminal = function(airport) {
         new lime.Sprite().setSize(WIDTH, HEIGHT)
             .setFill(worldco.resources.LIGHT_BLUE)
             .setPosition(WIDTH/2, HEIGHT/2));
-    this.appendChild(worldco.resources.getLogo().setPosition(70, 100)
-                     .setScale(2, 2));
+    this.appendChild(worldco.resources.getLogo().setPosition(70, 100));
     this.appendChild(worldco.resources.getLabel("Welcome to "+airport.name()
                                                 + "!")
                      .setSize(WIDTH, 50).setFontSize(LEN)
