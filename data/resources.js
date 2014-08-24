@@ -40,6 +40,10 @@ worldco.data.Resources.prototype.mute = function() {
     }
 };
 
+worldco.data.Resources.prototype.getLogo = function() {
+    return new lime.Sprite().setFill(this.spriteSheet_.getFrame('logo.png'));
+};
+
 worldco.data.Resources.prototype.getPlayer = function() {
     return new lime.Sprite().setFill(this.spriteSheet_.getFrame('walk1.png'));
 };

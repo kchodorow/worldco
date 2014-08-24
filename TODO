@@ -7,6 +7,8 @@ Fix the offset for interacting
 Make walking animation work
 Make inventory aligned vertically correctly
 Fix bug where NY is appearing as a NY destination
+Make $ bigger & aligned
+Add mute button
 
 Not required
 ------------
