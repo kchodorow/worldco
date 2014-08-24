@@ -50,8 +50,10 @@ worldco.AirportMap.prototype.getAirport = function(name) {
 // next = current + 1 + generated
 worldco.AirportMap.prototype.getClue = function(current) {
     var depth = current.depth();
-    var generated = goog.math.randomInt(worldco.AirportMap.MAX_DEPTH - depth - 1);
-    var tier_index = depth + generated + 1;
+    var generated = goog.math.randomInt(
+        worldco.AirportMap.MAX_DEPTH - depth - 1);
+    var depths = Object.keys(this.cities_by_depth_);
+    var tier_index = Math.min(depths.length-1, depth + generated + 1);
     var tier = this.cities_by_depth_[tier_index];
     var source = tier[goog.math.randomInt(tier.length)];
     var outgoing = source.getOutgoing();

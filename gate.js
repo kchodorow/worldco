@@ -36,8 +36,9 @@ worldco.Gate.prototype.interact = function() {
 
         // For the closure.
         var destination = this.destination_;
+        var ticket = this.ticket_needed_;
         goog.events.listen(dialog.yes_, ['mousedown'], function(e) {
-            worldco.game_state.removeFromInventory(this.ticket_needed_);
+            worldco.game_state.removeFromInventory(ticket);
             worldco.director.replaceScene(
                 new worldco.Terminal(destination));
         });
