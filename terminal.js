@@ -1,5 +1,9 @@
 goog.provide('worldco.Terminal');
 
+goog.require('lime.animation.Easing');
+goog.require('lime.animation.FadeTo');
+goog.require('lime.animation.ScaleTo');
+goog.require('lime.animation.Sequence');
 goog.require('lime.Label');
 goog.require('lime.Scene');
 goog.require('lime.Sprite');
@@ -133,6 +137,19 @@ worldco.Terminal.prototype.tick_ = function(delta) {
     if (this.player_.isInteracting()) {
         var pos = Math.floor((this.player_.getPosition().x+LEN/2) / LEN);
         var found = this.stuff_[pos].interact();
+        if (this.stuff_[pos] != worldco.Stuff.NOTHING) {
+            this.stuff_[pos].runAction(new lime.animation.Sequence(
+                new lime.animation.ScaleTo(1.2, 1.2).setDuration(.4)
+                    .setEasing(lime.animation.Easing.LINEAR),
+                new lime.animation.ScaleTo(1, 1).setDuration(.4)
+                    .setEasing(lime.animation.Easing.LINEAR)
+            ));
+        } else {
+            var nothing = worldco.resources.getLabel("Nothing there.")
+                    .setPosition(this.player_.getPosition());
+            this.appendChild(nothing);
+            nothing.runAction(new lime.animation.FadeTo(0));
+        }
         for (var i = 0; i < found.length; ++i) {
             this.appendChild(found[i].setPosition(
                 this.stuff_[pos].getPosition()));
