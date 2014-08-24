@@ -95,6 +95,9 @@ worldco.data.Resources.prototype.getDialog = function(text) {
     ok_button.appendChild(this.getLabel("Okay"));
     dialog.appendChild(ok_button);
     var close = function(e) {
+        if (dialog.getParent() == null) {
+            return;
+        }
         dialog.getParent().removeChild(dialog);
     };
     goog.events.listen(ok_button, ['mousedown'], close);

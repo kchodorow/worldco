@@ -75,6 +75,9 @@ worldco.AirportMap.prototype.finishConnections_ = function() {
             var tier = this.cities_by_depth_[goog.math.randomInt(city.depth())];
             // Choose a random city from that tier.
             var dest = tier[goog.math.randomInt(tier.length)];
+            if (city.name() == dest.name()) {
+                continue;
+            }
             city.addOutgoing(dest);
         }
     }
@@ -87,15 +90,20 @@ worldco.AirportMap.prototype.generateMap_ = function(last_city) {
         return last_city;
     }
 
-    var next_city = new worldco.Airport(
-        worldco.AirportMap.CITIES[index++], last_city);
+    var next_city = new worldco.Airport(this.getCityName_(), last_city);
     this.cities_[next_city.name()] = next_city;
     last_city.addOutgoing(next_city);
     this.cities_by_depth_[next_city.depth()].push(next_city);
     return this.generateMap_(next_city);
 };
 
-var index = 0;
+worldco.AirportMap.prototype.getCityName_ = function() {
+    var index = goog.math.randomInt(worldco.AirportMap.CITIES.length);
+    var city = worldco.AirportMap.CITIES[index];
+    goog.array.removeAt(worldco.AirportMap.CITIES, index);
+    return city;
+};
+
 worldco.AirportMap.CITIES = [
     "Bejing",
     "Buenos Aires",
