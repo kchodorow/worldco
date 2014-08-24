@@ -1,14 +1,14 @@
 Programming
 ===========
 
-Make splash screen intro
 Make splash screen outro
 Fix the offset for interacting
 Make walking animation work
-Make inventory aligned vertically correctly
 Fix bug where NY is appearing as a NY destination
-Make $ bigger & aligned
-Add mute button
+Add help desk
+Add TSA
+Add stink from trashcans
+Add bathrooms
 
 Not required
 ------------
@@ -17,6 +17,8 @@ Pick pocketing
 Side missions
 Make the terminal scrollable
 Track time
+Make airports load from old state
+Add mute button
 
 Art
 ===
@@ -31,3 +33,4 @@ Stores
 
 Music
 =====
+Generate sound effects

@@ -73,13 +73,17 @@ worldco.data.Resources.prototype.getLabel = function(text) {
 };
 
 worldco.data.Resources.prototype.getDialog_ = function(text) {
+    var TOP = 100;
     var num_lines = text.split('\n').length + 2;
     var height = this.LINE_HEIGHT * num_lines;
-    var background = new lime.Sprite().setSize(710, height+10)
-            .setFill(this.YELLOW).setPosition(WIDTH/2, 100)
-            .setStroke(3, this.TAN);
-    var label = this.getLabel(text).setPosition(0, height/-2 + LEN);
+    var background = new lime.Sprite().setSize(720, height+10)
+            .setFill(this.YELLOW).setPosition(WIDTH/2, TOP)
+            .setStroke(3, this.TAN).setAnchorPoint(.5, 0);
+    var label = this.getLabel(text).setPosition(0, LEN/2)
+            .setAnchorPoint(.5, 0)
+            .setSize(700, height);
     background.appendChild(label);
+    background.label_ = label;
     return background;
 };
 
@@ -87,7 +91,7 @@ worldco.data.Resources.prototype.getDialog = function(text) {
     var dialog = this.getDialog_(text);
     var height = dialog.getSize().height;
     var ok_button = new lime.Sprite().setSize(100, 50)
-            .setPosition(0, height/2 - LEN).setStroke(3, this.TAN);
+            .setPosition(0, height - LEN).setStroke(3, this.TAN);
     ok_button.appendChild(this.getLabel("Okay"));
     dialog.appendChild(ok_button);
     goog.events.listen(ok_button, ['mousedown'], function(e) {
@@ -101,12 +105,12 @@ worldco.data.Resources.prototype.getYesNoDialog = function(text) {
     var height = dialog.getSize().height;
 
     var no_button = new lime.Sprite().setSize(100, 50)
-            .setPosition(-75, height/2 - LEN).setStroke(3, this.TAN);
+            .setPosition(-75, height - LEN).setStroke(3, this.TAN);
     no_button.appendChild(this.getLabel("No"));
     dialog.appendChild(no_button);
 
     var yes_button = new lime.Sprite().setSize(100, 50)
-            .setPosition(75, height/2 - LEN).setStroke(3, this.TAN);
+            .setPosition(75, height - LEN).setStroke(3, this.TAN);
     yes_button.appendChild(this.getLabel("Yes"));
     dialog.appendChild(yes_button);
 

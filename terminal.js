@@ -43,6 +43,9 @@ worldco.Terminal.prototype.makeGates_ = function() {
     var distance_between_gates = Math.floor(
         this.TERMINAL_WIDTH/(outgoing.length * LEN));
     for (var i in outgoing) {
+        worldco.game_state.addClue(
+            "There are flights from " + this.airport_.name() + " to "
+                + outgoing[i].name());
         var dest = outgoing[i];
         var stuff_index = distance_between_gates * i + 2;
 
@@ -104,14 +107,21 @@ worldco.Terminal.prototype.addPlayer_ = function() {
 worldco.Terminal.prototype.addState_ = function() {
     this.wallet_ = worldco.resources.getLabel(
         '$' + worldco.game_state.getMoney())
-        .setSize(100, 50).setFontSize(20).setPosition(WIDTH - 100, 50);
+        .setSize(120, LEN).setAlign('right').setPosition(WIDTH - 100, 50);
     this.appendChild(this.wallet_);
-    var inventory = worldco.resources.getLabel("Inventory");
-    this.appendChild(inventory.setPosition(WIDTH - 100, 100));
+    var inventory = worldco.resources.getLabel("Inventory")
+            .setSize(120, LEN).setAlign('right').setPosition(WIDTH - 100, 85);
+    this.appendChild(inventory);
+    var log_book = worldco.resources.getLabel("Notes")
+            .setSize(120, LEN).setAlign('right').setPosition(WIDTH - 100, 120);
+    this.appendChild(log_book);
 
     var scene = this;
     goog.events.listen(inventory, ['mousedown'], function(e) {
         scene.appendChild(worldco.game_state.getInventorySprite());
+    });
+    goog.events.listen(log_book, ['mousedown'], function(e) {
+        scene.appendChild(worldco.game_state.getLogSprite());
     });
 };
 

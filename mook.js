@@ -17,11 +17,17 @@ worldco.ClueMook = function(clue) {
     this.source_ = clue.from;
     this.appendChild(worldco.resources.getMook()).setScale(2, 2);
     this.setSize(LEN, LEN);
+    this.first_ = true;
 };
 
 goog.inherits(worldco.ClueMook, worldco.Stuff);
 
 worldco.ClueMook.prototype.interact = function() {
+    if (this.first_) {
+        this.first_ = false;
+        worldco.game_state.addClue(
+            "There are flights from " + this.source_ + " to " + this.dest_);
+    }
     this.getScene().appendChild(
         worldco.resources.getDialog(
             "\"I hear there are flights from " + this.source_ + " to "
