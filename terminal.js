@@ -82,7 +82,8 @@ worldco.Terminal.prototype.getEmptyPos_ = function() {
 };
 
 worldco.Terminal.prototype.makeTrashCans_ = function() {
-    var NUM_TRASHCANS = 3;
+    // 1-3 trashcans.
+    var NUM_TRASHCANS = goog.math.randomInt(3) + 1;
     for (var i = 0; i < NUM_TRASHCANS; ++i) {
         var trash_pos = this.getEmptyPos_();
         this.stuff_[trash_pos] = new worldco.TrashCan();

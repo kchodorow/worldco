@@ -117,7 +117,7 @@ worldco.AirportMap.CITIES = [
 worldco.AirportMap.MIN_DEPTH = 3;
 worldco.AirportMap.MAX_DEPTH = 4;
 worldco.AirportMap.MIN_BREADTH = 3;
-worldco.AirportMap.MAX_BREADTH = 4;
+worldco.AirportMap.MAX_BREADTH = 3;
 
 worldco.Airport = function(name, parent) {
     this.name_ = name;
