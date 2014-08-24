@@ -131,7 +131,7 @@ worldco.Terminal.prototype.tick_ = function(delta) {
     }
 
     if (this.player_.isInteracting()) {
-        var pos = Math.floor(this.player_.getPosition().x / LEN);
+        var pos = Math.floor((this.player_.getPosition().x+LEN/2) / LEN);
         var found = this.stuff_[pos].interact();
         for (var i = 0; i < found.length; ++i) {
             this.appendChild(found[i].setPosition(
