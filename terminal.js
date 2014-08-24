@@ -25,13 +25,21 @@ worldco.Terminal = function(airport) {
         new lime.Sprite().setSize(WIDTH, HEIGHT)
             .setFill(worldco.resources.LIGHT_BLUE)
             .setPosition(WIDTH/2, HEIGHT/2));
-    this.appendChild(worldco.resources.getLabel("Welcome to "+airport.name())
+    this.appendChild(worldco.resources.getLogo().setPosition(70, 100)
+                     .setScale(2, 2));
+    this.appendChild(worldco.resources.getLabel("Welcome to "+airport.name()
+                                                + "!")
                      .setSize(WIDTH, 50).setFontSize(LEN)
-                     .setPosition(WIDTH/2, 100));
+                     .setPosition(300, 100));
 
     this.TERMINAL_WIDTH = 1000;
     this.TERMINAL_TOP = HEIGHT/2 - 100;
     this.TERMINAL_MIDDLE = HEIGHT/2;
+    this.BASELINE_ = 350;
+    this.GATES = this.BASELINE_;
+    this.PEDESTRIANS = this.BASELINE_ + 70;
+    this.PLAYER = this.BASELINE_ + 140;
+    this.TSA = this.BASELINE_ + 210;
 
     this.addStuff_();
     this.addPlayer_();
@@ -55,7 +63,7 @@ worldco.Terminal.prototype.makeGates_ = function() {
 
         var gate = new worldco.Gate(dest);
         this.stuff_[stuff_index] = gate;
-        gate.setPosition(stuff_index * LEN, HEIGHT/2);
+        gate.setPosition(stuff_index * LEN, this.GATES);
         this.appendChild(gate);
     }
 };
@@ -88,7 +96,7 @@ worldco.Terminal.prototype.makeTrashCans_ = function() {
         var trash_pos = this.getEmptyPos_();
         this.stuff_[trash_pos] = new worldco.TrashCan();
         this.appendChild(this.stuff_[trash_pos]
-                         .setPosition(trash_pos*LEN, HEIGHT/2 + 70));
+                         .setPosition(trash_pos*LEN, this.PEDESTRIANS));
     }
 };
 
@@ -97,12 +105,12 @@ worldco.Terminal.prototype.makeMooks_ = function() {
     var clue = worldco.map.getClue(this.airport_);
     this.stuff_[mook_pos] = new worldco.ClueMook(clue);
     this.appendChild(this.stuff_[mook_pos]
-                     .setPosition(mook_pos*LEN, HEIGHT/2 + 70));
+                     .setPosition(mook_pos*LEN, this.PEDESTRIANS));
 };
 
 worldco.Terminal.prototype.addPlayer_ = function() {
     this.player_ = new worldco.Player();
-    this.appendChild(this.player_);
+    this.appendChild(this.player_.setPosition(WIDTH/2, this.PLAYER));
     worldco.keyboard = new lib.Keyboard(this);
     worldco.keyboard.bindWasd(
         goog.bind(this.player_.setIntention, this.player_));
