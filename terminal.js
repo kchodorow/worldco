@@ -103,10 +103,12 @@ worldco.Terminal.prototype.makeMooks_ = function() {
 worldco.Terminal.prototype.addPlayer_ = function() {
     this.player_ = new worldco.Player();
     this.appendChild(this.player_);
-    var keyboard = new lib.Keyboard(this);
-    keyboard.bindWasd(goog.bind(this.player_.setIntention, this.player_));
-    keyboard.bind(goog.events.KeyCodes.M,
-                  goog.bind(worldco.resources.mute, worldco.resources));
+    worldco.keyboard = new lib.Keyboard(this);
+    worldco.keyboard.bindWasd(
+        goog.bind(this.player_.setIntention, this.player_));
+    worldco.keyboard.bind(
+        goog.events.KeyCodes.M,
+        goog.bind(worldco.resources.mute, worldco.resources));
 };
 
 worldco.Terminal.prototype.addState_ = function() {

@@ -94,9 +94,11 @@ worldco.data.Resources.prototype.getDialog = function(text) {
             .setPosition(0, height - LEN).setStroke(3, this.TAN);
     ok_button.appendChild(this.getLabel("Okay"));
     dialog.appendChild(ok_button);
-    goog.events.listen(ok_button, ['mousedown'], function(e) {
+    var close = function(e) {
         dialog.getParent().removeChild(dialog);
-    });
+    };
+    goog.events.listen(ok_button, ['mousedown'], close);
+    worldco.keyboard.bind(goog.events.KeyCodes.ENTER, close);
     return dialog;
 };
 
