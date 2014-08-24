@@ -10,6 +10,7 @@ goog.require('lime.Sprite');
 
 goog.require('lib.Keyboard');
 goog.require('worldco.ClueMook');
+goog.require('worldco.HelpDesk');
 goog.require('worldco.Gate');
 goog.require('worldco.OutroScene');
 goog.require('worldco.Player');
@@ -54,29 +55,45 @@ goog.inherits(worldco.Terminal, lime.Scene);
 worldco.Terminal.prototype.makeGates_ = function() {
     var outgoing = this.airport_.getOutgoing();
     var distance_between_gates = Math.floor(
-        this.TERMINAL_WIDTH/(outgoing.length * LEN));
+        this.TERMINAL_WIDTH/(outgoing.length * (LEN * 2)));
     for (var i in outgoing) {
         worldco.game_state.addClue(
             "There are flights from " + this.airport_.name() + " to "
                 + outgoing[i].name());
         var dest = outgoing[i];
-        var stuff_index = distance_between_gates * i + 2;
+        var stuff_index = this.getEmptyPos_();
 
         var gate = new worldco.Gate(dest);
         this.stuff_[stuff_index] = gate;
-        gate.setPosition(stuff_index * LEN, this.GATES);
+        gate.y_ = this.GATES;
         this.appendChild(gate);
     }
 };
 
 worldco.Terminal.prototype.addStuff_ = function() {
-    this.stuff_ = new Array(Math.floor(this.TERMINAL_WIDTH/LEN));
+    this.stuff_ = new Array(Math.floor(this.TERMINAL_WIDTH/(LEN * 2)));
     for (var i = 0; i < this.stuff_.length; ++i) {
         this.stuff_[i] = worldco.Stuff.NOTHING;
     }
+    this.makeHelpDesk_();
     this.makeGates_();
     this.makeTrashCans_();
     this.makeMooks_();
+
+    for (var i = 0; i < this.stuff_.length; ++i) {
+        if (this.stuff_[i] == worldco.Stuff.NOTHING) {
+            continue;
+        } else {
+            this.stuff_[i].setPosition(i*LEN*2, this.stuff_[i].y_);
+        }
+    }
+};
+
+worldco.Terminal.prototype.makeHelpDesk_ = function() {
+    var index = this.getEmptyPos_();
+    this.stuff_[index] = new worldco.HelpDesk();
+    this.stuff_[index].y_ = this.GATES;
+    this.appendChild(this.stuff_[index]);
 };
 
 worldco.Terminal.prototype.getEmptyPos_ = function() {
@@ -96,8 +113,8 @@ worldco.Terminal.prototype.makeTrashCans_ = function() {
     for (var i = 0; i < NUM_TRASHCANS; ++i) {
         var trash_pos = this.getEmptyPos_();
         this.stuff_[trash_pos] = new worldco.TrashCan();
-        this.appendChild(this.stuff_[trash_pos]
-                         .setPosition(trash_pos*LEN, this.PEDESTRIANS));
+        this.stuff_[trash_pos].y_ = this.PEDESTRIANS;
+        this.appendChild(this.stuff_[trash_pos]);
     }
 };
 
@@ -105,8 +122,8 @@ worldco.Terminal.prototype.makeMooks_ = function() {
     var mook_pos = this.getEmptyPos_();
     var clue = worldco.map.getClue(this.airport_);
     this.stuff_[mook_pos] = new worldco.ClueMook(clue);
-    this.appendChild(this.stuff_[mook_pos]
-                     .setPosition(mook_pos*LEN, this.PEDESTRIANS));
+    this.stuff_[mook_pos].y_ = this.PEDESTRIANS;
+    this.appendChild(this.stuff_[mook_pos]);
 };
 
 worldco.Terminal.prototype.addPlayer_ = function() {
@@ -151,7 +168,7 @@ worldco.Terminal.prototype.tick_ = function(delta) {
     }
 
     if (this.player_.isInteracting()) {
-        var pos = Math.floor((this.player_.getPosition().x+LEN/2) / LEN);
+        var pos = Math.floor((this.player_.getPosition().x+LEN) / (LEN * 2));
         var found = this.stuff_[pos].interact();
         if (this.stuff_[pos] != worldco.Stuff.NOTHING) {
             this.stuff_[pos].runAction(new lime.animation.Sequence(

@@ -1,4 +1,5 @@
 goog.provide('worldco.IntroScene');
+goog.provide('worldco.OutroScene');
 
 goog.require('lime.Scene');
 
